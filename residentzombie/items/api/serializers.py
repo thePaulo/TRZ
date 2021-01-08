@@ -4,4 +4,9 @@ from items import models
 class ItemsSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Item
-        fields = '__all__'
+        fields = '__all__'#['name','points']
+
+class ItemsSerializerUpdate(serializers.ModelSerializer):
+    class Meta:
+        model = models.Item
+        fields = ['points']
