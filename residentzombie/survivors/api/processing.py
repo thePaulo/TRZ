@@ -4,6 +4,7 @@ from django.db import transaction
 from django.http import Http404
 from django.core.exceptions import PermissionDenied
 
+#sums up the informed points inside the items ids from s1 and s2 and stores each of it in a item's dictionary
 def paramsSum(param):
     dict = {}
     for c,i in enumerate(param.split()):
@@ -19,6 +20,7 @@ def paramsSum(param):
         sum = sum + val
     return sum, dict
 
+#returns the sum from each survivor's item points and checks its ownership, receives the two get parameters from the "/trading" url
 def process(param1,param2):
 
     sum1, dict1 =paramsSum(param1)
@@ -33,6 +35,7 @@ def process(param1,param2):
             raise PermissionDenied("Algum dos itens não pertencem ao mesmo sobrevivente")
         return sum1
 
+#checks if the survivor is infected or not, and it checks its ownership.Its param is a dict from a survivor's items. returns (True = owns, False = doesent own )
 def checkOwner(dict):
     items={}
     for key in dict.keys():
@@ -41,7 +44,7 @@ def checkOwner(dict):
         except:
             pass
 
-    fitemId = (next(iter(items))) #id do primeiro item
+    fitemId = (next(iter(items)))
     owner = get_object_or_404(Item,id=fitemId).owner
 
     if owner.infected == 1:
@@ -56,13 +59,14 @@ def checkOwner(dict):
             break
     return allow #True ou False
 
+#makes the trade between two survivors, its params are the item dictionaries from each survivor
 @transaction.atomic
 def make_transaction(dict1,dict2):
 
-    fitemId = (next(iter(dict1))) #id do primeiro item
+    fitemId = (next(iter(dict1))) 
     owner1 = get_object_or_404(Item,id=dict1[fitemId]).owner
 
-    fitemId = (next(iter(dict2))) #id do primeiro item
+    fitemId = (next(iter(dict2))) 
     owner2 = get_object_or_404(Item,id=dict2[fitemId]).owner
 
     for key in dict1.keys():
@@ -72,6 +76,7 @@ def make_transaction(dict1,dict2):
         sendItem(dict2[key],owner2,owner1)
     print("Transação bem sucedida")
 
+#adjusts the ownership and item amount from each survivor    
 def sendItem(item_id,giver,receiver):
         try:
             with transaction.atomic():
