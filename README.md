@@ -15,7 +15,7 @@ Clone this repo and run:
 pip install -r requirements.txt
 ```
 
-## Run Django migrations:
+## Run Django migrations (on main residentzombie folder):
 
 ```shell
 python manage.py makemigrations
