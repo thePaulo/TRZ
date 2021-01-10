@@ -1,29 +1,19 @@
-"""residentzombie URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path, include
 
 from rest_framework import routers
 from survivors.api import viewsets as survivorsviewsets
+from items.api import viewsets as itemsviewsets
+
+from survivors import views as sview
 
 route = routers.DefaultRouter()
 route.register(r'survivors', survivorsviewsets.SurvivorsViewSet,basename="Survivors")
+route.register(r'items', itemsviewsets.ItemsViewSet,basename="Items")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include(route.urls))
-
+    path('',include(route.urls)),
+    path('trading',sview.displayTrades,name="trading"),
+    path('reports',include("reports.urls"),name="reports")
 ]
