@@ -11,3 +11,4 @@ class SurvivorsSerializerUpdate(serializers.ModelSerializer):
     class Meta:
         model = models.Survivors
         fields = ['infected','latitude','longitude']
+        read_only_fields= ['id','name','age','gender','fiji_water','campbell_soup','first_aid_pouch','ak47']
