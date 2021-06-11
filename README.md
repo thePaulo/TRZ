@@ -1,6 +1,11 @@
-# codeminer-test-back-end
+# TRZ (The R¿esident Zo?mbie) - Backend
 
-# TRZ (The Resident Zombie) - Backend
+## Problem Description
+
+The world, as we know it, has fallen into an apocalyptic scenario. The "Influenzer T-Virus" (a.k.a. Twiter Virus) is transforming human beings into stupid beasts (a.k.a. Zombies), hungry to cancel humans and eat their limbs.
+
+You, the last survivor who knows how to code, will help the resistance by deploying a system to connect the remaining humans. This system will be essential to detect new infections and share resources between the members.
+
 ## Requirements
 
 * Python 3.8.1
